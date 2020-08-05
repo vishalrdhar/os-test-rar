@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block auditcontent %}
+  <h3>AUDIT FILE CONTENT:: Start</h3>
+  <br>
+  <p>FILE NAME:  {{my_string}}</p>
+  <p>LINE COUNT: {{line_count}}</p>
+  <p>WORD COUNT: {{total_word_count}}</p>
+  <p>CHAR COUNT: {{total_char_count}}</p>
+  <ul>
+    {% for n in my_list %}
+    <p>{{n}}</p>
+    {% endfor %}
+  </ul>
+  <h3>AUDIT FILE CONTENT:: End</h3>
+{% endblock %}

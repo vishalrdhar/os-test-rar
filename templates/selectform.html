@@ -1,0 +1,9 @@
+<form name="selectform" method="POST" enctype="multipart/form-data" action="{{ url_for('audit') }}">
+  <h1><center>Text Audit App</center></h1><br><br>
+  <label>Select a text/.txt file to audit:</label>
+  <input type="file" name="txtdata" accept=".txt" required><br><br>
+  <input type="submit" value="Submit" ><br><br> 
+  {% if errstr %}
+	<p class=error><strong>Error:</strong> {{ errstr }}
+  {% endif %}
+</form>
