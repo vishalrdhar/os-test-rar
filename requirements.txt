@@ -1,0 +1,12 @@
+gunicorn
+Flask
+numpy
+matplotlib
+pandas
+scipy
+sklearn
+pylab-sdk
+requests
+seaborn
+feature_engine
+

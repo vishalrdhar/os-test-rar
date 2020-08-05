@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TITANIC Logistic Regression Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+      .container {
+        max-width: 1000px;
+        padding-top: 10px;
+      }
+      h2 {color: blue;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>START of the TITANIC Logistic Regression OUTPUT</h2>
+      <br>
+      {% block content %}{% endblock %}
+      <br>
+      <h2>END of the TITANIC Logistic Regression OUTPUT</h2>
+    </div>
+    <script src="static/jquery-1.10.2.min.js"></script>
+    <script src="static/bootstrap.js"></script>
+	<form action = "http://myapp-ray-titanic.127.0.0.1.nip.io/" method = "POST">
+	   <p><input type = "submit" value = "Enter Another Passenger" /></p>
+    </form>
+  </body>
+</html>
