@@ -355,7 +355,7 @@ else:
             #                     total_word_count = twc,
             #                     total_char_count=tcc,
             #                     my_list=output_list,)
-            return(send_file(os.path.join(os.getcwd(), outfile)), as_attachment=True)
+            return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
     # end of audit()
 
 # end of if __name__ == "__main__": ... else
