@@ -372,9 +372,9 @@ else:
 
     @application.route('/return-file/')
     def return_file():
-    	print("return_file")
-    	filenamepath = os.path.join(os.getcwd(), session.get('outputfile'))
-    	print("return_file session outputfile = ", filenamepath)
+        print("return_file")
+        filenamepath = os.path.join(os.getcwd(), session.get('outputfile'))
+        print("return_file session outputfile = ", filenamepath)
         try:
             return(send_file(filenamepath, as_attachment=True))
         except Exception as e:
