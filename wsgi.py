@@ -374,6 +374,7 @@ else:
     def return_file():
         print("return_file")
         filename = session.get('outputfile')
+        print(filename)
         filenamepath = os.path.join(os.getcwd(), filename)
         print("return_file session outputfile = ", filenamepath)
         try:
