@@ -279,7 +279,7 @@ from flask import request
 
 # In[ ]:
 
-
+from werkzeug.utils import secure_filename
 # Import werkzeug to run your app as a web application
 # from werkzeug.serving import run_simple
 
@@ -326,10 +326,10 @@ else:
     @application.route('/audit', methods=['POST'])
     def audit():
 
-        file_obj = request.files.get('txtdata')
-        print("Type of the file is :", type(file_obj))
-        name = file_obj.filename
-        print(name)
+        # file_obj = request.files.get('txtdata')
+        # print("Type of the file is :", type(file_obj))
+        # name = file_obj.filename
+        # print(name)
 
         #############################################
         # get file info to upload file to container
