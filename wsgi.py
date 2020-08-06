@@ -320,17 +320,20 @@ else:
 	@application.route('/audit', methods=['POST'])
 	def audit():
 
-		print("*** request.files.get('txtdata'])")
+		# get the file object data for the input file
 		file_obj = request.files.get('txtdata')
 		# print("Type of the file is :", type(file_obj))
+		print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
+		for item in file_obj:
+			print("filestorage item:", item)
 		name = file_obj.filename
 		print("*** input file name is:", name)
 		# print(name)
 
 		#######################################################################
-		# get file info and upload file to container  directory
+		# save input file data to file in container directory
 		#
-		print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
+		# print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
 		filename = secure_filename(file_obj.filename)
 		file_obj.save(os.path.join(os.getcwd(), filename))
 		print("*** input file name is:", os.path.join(os.getcwd(), filename))
