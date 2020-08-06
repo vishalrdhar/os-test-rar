@@ -355,8 +355,22 @@ else:
             #                     total_word_count = twc,
             #                     total_char_count=tcc,
             #                     my_list=output_list,)
-            return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+            # return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+            return render_template('results.html',
+                                my_string=filename,
+                                line_count=tlc,
+                                total_word_count = twc,
+                                total_char_count=tcc,
+                                my_list=output_list,)
     # end of audit()
+
+
+    @application.route('/return-file/')
+	def return_file():
+	try:
+		return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+	except Exception as e:
+		return str(e)
 
 # end of if __name__ == "__main__": ... else
 
