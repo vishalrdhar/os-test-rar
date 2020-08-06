@@ -343,12 +343,13 @@ else:
         print("*** Type of the file_obj is :", type(file_obj))
         filename = secure_filename(file_obj.filename)
         file_obj.save(os.path.join(os.getcwd(), filename))
-        print("*** inout file name is:", os.path.join(os.getcwd(), filename))
+        print("*** input file name is:", os.path.join(os.getcwd(), filename))
         #############################################
 
         # Call fx Main program
         tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
         session['outputfile'] = outfile
+        print("from my_main outfile = ", session.get('outputfile'))
         print("from my_main outfile = ", session.get('outputfile'))
 
         if len(errstr):
