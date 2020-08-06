@@ -330,12 +330,12 @@ else:
 		#######################################################################
 		# get file info and upload file to container  directory
 		#
-		# print("*** request.files['txtdata']")
-		# file_obj = request.files['txtdata']
-		# print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
-		# filename = secure_filename(file_obj.filename)
-		# file_obj.save(os.path.join(os.getcwd(), filename))
-		# print("*** input file name is:", os.path.join(os.getcwd(), filename))
+		print("*** request.files['txtdata']")
+		file_obj = request.files['txtdata']
+		print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
+		filename = secure_filename(file_obj.filename)
+		file_obj.save(os.path.join(os.getcwd(), filename))
+		print("*** input file name is:", os.path.join(os.getcwd(), filename))
 		#######################################################################
 
 		# Call fx Main program
