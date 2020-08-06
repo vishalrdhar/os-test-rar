@@ -239,6 +239,7 @@ def my_main(input_filename):
     
     return(totlinecount, totwordcount, totcharcount,output_list,xlsx_filename,"" )
 
+# end of function my_main()
 
 # In[ ]:
 
@@ -284,7 +285,7 @@ from werkzeug.utils import secure_filename
 # Import werkzeug to run your app as a web application
 # from werkzeug.serving import run_simple
 
-
+OUTFILE = ""
 # In[ ]:
 
 
@@ -327,6 +328,7 @@ else:
     @application.route('/audit', methods=['POST'])
     def audit():
 
+        global OUTFILE
         # file_obj = request.files.get('txtdata')
         # print("Type of the file is :", type(file_obj))
         # name = file_obj.filename
@@ -345,6 +347,7 @@ else:
 
         # Call fx Main program
         tlc, twc, tcc,output_list, outfile, errstr = my_main(filename)
+        OUTFILE = outfile
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -368,7 +371,7 @@ else:
     @application.route('/return-file/')
     def return_file():
         try:
-            return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+            return(send_file(os.path.join(os.getcwd(), OUTFILE), as_attachment=True))
         except Exception as e:
             return str(e)
 
