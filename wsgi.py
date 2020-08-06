@@ -351,6 +351,8 @@ else:
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
 
+		if 'filesent' in session:
+			session.pop('filesent', None)
 		session['outputfile'] = outfile
 
 		print("from my_main outfile = ", session['outputfile'])
@@ -395,7 +397,6 @@ else:
 		print("return_file", application.secret_key)
 		res = str(session.items())
 		print("Session res", res)
-		print("return_file session outputfile = ", session['outputfile'])
 
 		if 'outputfile' in session:
 			res = str(session.items())
