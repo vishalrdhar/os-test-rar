@@ -324,21 +324,12 @@ else:
 		file_obj = request.files.get('txtdata')
 		# print("Type of the file is :", type(file_obj))
 		print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
-		for item in file_obj:
-			print("filestorage item:", item)
-		print("file_obj.name", file_obj.name)
-		print("file_obj.stream", file_obj.stream)
-		print("file_obj.headers", file_obj.headers)
-		print("file_obj.content_type", file_obj.content_type)
-		print("file_obj.content_length", file_obj.content_length)
-		name = file_obj.filename
-		print("*** input file name is:", name)
+		# name = file_obj.filename
 		# print(name)
 
 		#######################################################################
 		# save input file data to file in container directory
 		#
-		# print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
 		filename = secure_filename(file_obj.filename)
 		file_obj.save(os.path.join(os.getcwd(), filename))
 		print("*** input file name is:", os.path.join(os.getcwd(), filename))
