@@ -371,6 +371,7 @@ else:
 
     @application.route('/return-file/')
     def return_file():
+        global OUTFILE
         try:
             print("OUTFILE = ", OUTFILE)
             return(send_file(os.path.join(os.getcwd(), OUTFILE), as_attachment=True))
