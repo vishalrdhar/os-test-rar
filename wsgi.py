@@ -384,7 +384,7 @@ else:
 	@application.route('/return-file/')
 	def return_file():
 
-		def clearsession(response):
+		def clearsession():
 			os.remove(os.path.join(os.getcwd(), session['outputfile']))
 			session.pop('outputfile', None)
 			session.pop('filesent',None)
@@ -397,7 +397,9 @@ else:
 		print("return_file session outputfile = ", session['outputfile'])
 
 		if 'outputfile' in session:
-			if 'filesent' in session:
+			res = str(session.items())
+			print("Session res", res)
+			if 'filesent' not in session:
 				filename = session['outputfile']
 				print(filename)
 				filenamepath = os.path.join(os.getcwd(), filename)
