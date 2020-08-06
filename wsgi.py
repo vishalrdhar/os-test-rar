@@ -26,11 +26,11 @@ def my_main(input_filename):
 	
 	# Get the current working directory 
 	curr_dir = os.getcwd()
-	print(curr_dir)
+	# print(curr_dir)
 
 	# Get the list of files in the directory
 	file_list = os.listdir()
-	print(file_list)
+	# print(file_list)
 
 	# Search thru the list for the input file name
 	input_file_found = False
@@ -85,12 +85,12 @@ def my_main(input_filename):
 		word_length.append(i)
 	#End For	
 
-	print(word_length)	
+	# print(word_length)	
 
 	# Frequency table will keep track of the frequency of the word lengths
 	freq_table = []
 	freq_table = 17*[0]		# initialize outside loop with 17 zeros
-	print(freq_table)
+	# print(freq_table)
 
 	# Initialize line totals
 	linecount = 0
@@ -117,11 +117,11 @@ def my_main(input_filename):
 	# Read the input file into a list
 
 	for myline in input_file_obj:
-		print(myline)
+		# print(myline)
 
 		linecount = linecount + 1
 		word_list = myline.split()
-		print(word_list)
+		# print(word_list)
 		wordcount = len(word_list)
 
 		charcount = len(myline)
@@ -136,7 +136,7 @@ def my_main(input_filename):
 			#End If
 		#End for
 
-		print(linecount, wordcount, charcount , nowscharcount)
+		# print(linecount, wordcount, charcount , nowscharcount)
 
 		final_line = myline + "," + str(linecount) + "," + str(wordcount) + "," + str(charcount) + "," + str(nowscharcount)
 		output_list.append(final_line)
@@ -154,14 +154,14 @@ def my_main(input_filename):
 
 	#End For
 
-	print(word_length)
-	print(freq_table)
+	# print(word_length)
+	# print(freq_table)
 
-	# Print File totals
-	print(totlinecount)
-	print(totwordcount)
-	print(totcharcount)
-	print(totnowscharcount)
+	# # Print File totals
+	# print(totlinecount)
+	# print(totwordcount)
+	# print(totcharcount)
+	# print(totnowscharcount)
 
 	
 
