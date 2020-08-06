@@ -320,7 +320,7 @@ else:
 	@application.route('/', methods=['GET'])
 	def welcomepage():
 		return('<h1><center>Text Audit Welcome Page</h1><br>')
-	# end of function home1()
+	# end of function welcomepage()
  
 	# home displays the selectform.html
 	@application.route('/home', methods=['GET'])
