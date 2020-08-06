@@ -383,7 +383,7 @@ else:
 	@application.route('/return-file/')
 	def return_file():
 		@after_this_request
-		def clearsession(response):
+		def clearsession(response, session):
 			os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
 			session.pop('outputfile', None)
 			return render_template('dlcomplete.html')
