@@ -277,8 +277,8 @@ from flask import Flask
 from flask import render_template 
 from flask import request
 from flask import send_file
-from flask import session
-from flask import after_this_request, g
+# from flask import session
+# from flask import after_this_request, g
 
 
 # In[ ]:
@@ -313,8 +313,8 @@ else:
 	# Instantiate the Flask object 
 	application = Flask(__name__)
 
-	# with application.app_context():
-	application.secret_key = os.urandom(8)
+	# # with application.app_context():
+	# application.secret_key = os.urandom(8)
 
 	# home displays the selectform.html
 	@application.route('/', methods=['GET'])
@@ -351,15 +351,15 @@ else:
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
 
-		if 'filesent' in session:
-			session.pop('filesent', None)
-		session['outputfile'] = outfile
+		# if 'filesent' in session:
+		# 	session.pop('filesent', None)
+		# session['outputfile'] = outfile
 
-		print("from my_main outfile = ", session['outputfile'])
+		# print("from my_main outfile = ", session['outputfile'])
 
-		print("my_main", application.secret_key)
-		res = str(session.items())
-		print("Session res", res)
+		# print("my_main", application.secret_key)
+		# res = str(session.items())
+		# print("Session res", res)
 
 		if len(errstr):
 			return render_template('selectform.html', errstr= errstr)
@@ -370,53 +370,50 @@ else:
 			#					 total_word_count = twc,
 			#					 total_char_count=tcc,
 			#					 my_list=output_list,)
-			# return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
-			return render_template('results.html',
-								my_string=filename,
-								line_count=tlc,
-								total_word_count = twc,
-								total_char_count=tcc,
-								my_list=output_list,)
+			return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+			# return render_template('results.html',
+			# 					my_string=filename,
+			# 					line_count=tlc,
+			# 					total_word_count = twc,
+			# 					total_char_count=tcc,
+			# 					my_list=output_list,)
 	# end of audit()
 
 
-	# def get_session():
-	# 	return(g.session)
+	# @application.route('/return-file')
+	# def return_file():
 
-	@application.route('/return-file')
-	def return_file():
+	# 	def clearsession():
+	# 		print("$$$$ in clearsession")
+	# 		os.remove(os.path.join(os.getcwd(), session['outputfile']))
+	# 		session.pop('outputfile', None)
+	# 		session.pop('filesent',None)
+	# 		return(render_template('dlcomplete.html'))
 
-		def clearsession():
-			print("$$$$ in clearsession")
-			os.remove(os.path.join(os.getcwd(), session['outputfile']))
-			session.pop('outputfile', None)
-			session.pop('filesent',None)
-			return(render_template('dlcomplete.html'))
+	# 	# session = get_session()
+	# 	print("return_file", application.secret_key)
+	# 	res = str(session.items())
+	# 	print("Session res", res)
 
-		# session = get_session()
-		print("return_file", application.secret_key)
-		res = str(session.items())
-		print("Session res", res)
-
-		if 'outputfile' in session:
-			res = str(session.items())
-			print("Session res", res)
-			if 'filesent' not in session:
-				filename = session['outputfile']
-				print(filename)
-				filenamepath = os.path.join(os.getcwd(), filename)
-				print("return_file filenamepath = ", filenamepath)
-				try:
-					session['filesent'] = True
-					res = str(session.items())
-					print("Session res", res)
-					return(send_file(filenamepath, as_attachment=True))
-				except Exception as e:
-					return(str(e))
-			else:
-				return(clearsession())
-		else:
-			return(render_template('nofile.html'))
+	# 	if 'outputfile' in session:
+	# 		res = str(session.items())
+	# 		print("Session res", res)
+	# 		if 'filesent' not in session:
+	# 			filename = session['outputfile']
+	# 			print(filename)
+	# 			filenamepath = os.path.join(os.getcwd(), filename)
+	# 			print("return_file filenamepath = ", filenamepath)
+	# 			try:
+	# 				session['filesent'] = True
+	# 				res = str(session.items())
+	# 				print("Session res", res)
+	# 				return(send_file(filenamepath, as_attachment=True))
+	# 			except Exception as e:
+	# 				return(str(e))
+	# 		else:
+	# 			return(clearsession())
+	# 	else:
+	# 		return(render_template('nofile.html'))
 
 	# end of return_file
 
