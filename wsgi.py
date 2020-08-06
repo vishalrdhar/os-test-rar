@@ -237,7 +237,7 @@ def my_main(input_filename):
     input_file_obj.close()
     wb.close()
     
-    return(totlinecount, totwordcount, totcharcount,output_list,"" )
+    return(totlinecount, totwordcount, totcharcount,output_list,xlsx_filename,"" )
 
 
 # In[ ]:
@@ -275,6 +275,7 @@ def my_main(input_filename):
 from flask import Flask
 from flask import render_template 
 from flask import request
+from flask import send_file
 
 
 # In[ ]:
@@ -312,8 +313,8 @@ else:
 
     # home displays the selectform.html
     @application.route('/', methods=['GET'])
-    def home1():
-        return('home page')
+    def welcomepage():
+        return('<h1><center>Text Audit Welcome Page</h1><br>')
     # end of function home1()
  
     # home displays the selectform.html
@@ -343,18 +344,18 @@ else:
         #############################################
 
         # Call fx Main program
-        tlc, twc, tcc,output_list, errstr = my_main(filename)
+        tlc, twc, tcc,output_list, outfile, errstr = my_main(filename)
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
         else:
-            return render_template('template.html',
-                                my_string=filename,
-                                line_count=tlc,
-                                total_word_count = twc,
-                                total_char_count=tcc,
-                                my_list=output_list,)
-
+            # return render_template('template.html',
+            #                     my_string=filename,
+            #                     line_count=tlc,
+            #                     total_word_count = twc,
+            #                     total_char_count=tcc,
+            #                     my_list=output_list,)
+            return(send_file(os.path.join(os.getcwd(), outfile)), as_attachment=True)
     # end of audit()
 
 # end of if __name__ == "__main__": ... else
