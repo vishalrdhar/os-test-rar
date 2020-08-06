@@ -334,8 +334,8 @@ else:
         #############################################
         # get file info to upload file to container
         #
-        print("*** request.files('file')")
-        file_obj = request.files('file')
+        print("*** request.files['file']")
+        file_obj = request.files['file']
         print("*** Type of the file_obj is :", type(file_obj))
         filename = secure_filename(file_obj.filename)
         file_obj.save(os.path.join(os.getcwd(), filename))
