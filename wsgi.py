@@ -349,7 +349,7 @@ else:
         # Call fx Main program
         tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
         session['outputfile'] = outfile
-        print("from my_main outfile = ", session["outputfile"])
+        print("from my_main outfile = ", session['outputfile'])
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -372,6 +372,7 @@ else:
 
     @application.route('/return-file/')
     def return_file():
+        print("return_file OUTFILE = ", session['outputfile'])
         if 'outputfile' in session:
             print("return_file OUTFILE = ", session['outputfile'])
             try:
