@@ -383,11 +383,12 @@ else:
 
 	@application.route('/return-file/')
 	def return_file():
-		# @after_this_request
-		# def clearsession(response):
-		# 	os.remove(os.path.join(os.getcwd(), session['outputfile']))
-		# 	session.pop('outputfile', None)
-		# 	return render_template('dlcomplete.html')
+
+		def clearsession(response):
+			os.remove(os.path.join(os.getcwd(), session['outputfile']))
+			session.pop('outputfile', None)
+			session.pop('filesent',None)
+			return render_template('dlcomplete.html')
 
 		# session = get_session()
 		print("return_file", application.secret_key)
@@ -396,14 +397,18 @@ else:
 		print("return_file session outputfile = ", session['outputfile'])
 
 		if 'outputfile' in session:
-			filename = session['outputfile']
-			print(filename)
-			filenamepath = os.path.join(os.getcwd(), filename)
-			print("return_file filenamepath = ", filenamepath)
-			try:
-				return(send_file(filenamepath, as_attachment=True))
-			except Exception as e:
-				return str(e)
+			if 'filesent' in session:
+				filename = session['outputfile']
+				print(filename)
+				filenamepath = os.path.join(os.getcwd(), filename)
+				print("return_file filenamepath = ", filenamepath)
+				try:
+					session['filesent'] = True
+					return(send_file(filenamepath, as_attachment=True))
+				except Exception as e:
+					return str(e)
+			else:
+				clearsession()
 		else:
 			return render_template('nofile.html')
 
