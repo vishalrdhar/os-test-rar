@@ -304,10 +304,10 @@ else:
 	# # with application.app_context():
 	# application.secret_key = os.urandom(8)
 
-	# home displays the selectform.html
+	# home displays a welcome message
 	@application.route('/', methods=['GET'])
 	def welcomepage():
-		return('<h1><center>Text Audit Welcome Page</h1><br>')
+		return('<h1><center>Text Audit App v1.0 Welcome Page</h1><br>')
 	# end of function welcomepage()
  
 	# home displays the selectform.html
