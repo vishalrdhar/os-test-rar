@@ -372,6 +372,7 @@ else:
 
     @application.route('/return-file/')
     def return_file():
+    	print(session)
         if 'outputfile' in session:
             print("return_file OUTFILE = ", session['outputfile'])
             try:
