@@ -348,7 +348,7 @@ else:
         # Call fx Main program
         tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
         OUTFILE = outfile
-        print("OUTFILE = ", OUTFILE)
+        print("from my_main OUTFILE = ", OUTFILE)
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -373,7 +373,7 @@ else:
     def return_file():
         global OUTFILE
         try:
-            print("OUTFILE = ", OUTFILE)
+            print("return_file OUTFILE = ", OUTFILE)
             return(send_file(os.path.join(os.getcwd(), OUTFILE), as_attachment=True))
         except Exception as e:
             return str(e)
