@@ -15,7 +15,7 @@ import sys
 
 
 # line magic in jupyter notebook
-get_ipython().system('dir ')
+# get_ipython().system('dir ')
 
 
 # In[ ]:
