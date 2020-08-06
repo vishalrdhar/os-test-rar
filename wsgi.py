@@ -278,7 +278,7 @@ from flask import render_template
 from flask import request
 from flask import send_file
 from flask import session
-from flask import after_this_request
+from flask import after_this_request, g
 
 
 # In[ ]:
@@ -349,13 +349,11 @@ else:
 
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
-		if 'outputfile' in session:
-			session['outputfile'] = outfile
-			session.modified = True
-		else:
-			session['outputfile'] = outfile
+		# if 'outputfile' in session:
+		g.outputfile = outfile
+		# g.session = session
 
-		print("from my_main outfile = ", session.get('outputfile'))
+		print("from my_main outfile = ", g.outputfile)
 
 		print("my_main", application.secret_key)
 		res = str(session.items())
@@ -380,19 +378,25 @@ else:
 	# end of audit()
 
 
+	# def get_session():
+	# 	return(g.session)
+
 	@application.route('/return-file/')
 	def return_file():
 		@after_this_request
-		def clearsession(response, session):
-			os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
-			session.pop('outputfile', None)
+		def clearsession(response):
+			os.remove(os.path.join(os.getcwd(), g.outputfile))
+			g.pop('outputfile', None)
 			return render_template('dlcomplete.html')
 
+		# session = get_session()
 		print("return_file", application.secret_key)
-		res = str(session.items())
-		print("Session res", res)
+		# res = str(session.items())
+		# print("Session res", res)
+
+
 		if 'outputfile' in session:
-			filename = session.get('outputfile')
+			filename = g.outputfile
 			print(filename)
 			filenamepath = os.path.join(os.getcwd(), filename)
 			print("return_file session outputfile = ", filenamepath)
