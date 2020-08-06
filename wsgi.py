@@ -383,11 +383,11 @@ else:
 
 	@application.route('/return-file/')
 	def return_file():
-		@after_this_request
-		def clearsession(response):
-			os.remove(os.path.join(os.getcwd(), session['outputfile']))
-			session.pop('outputfile', None)
-			return render_template('dlcomplete.html')
+		# @after_this_request
+		# def clearsession(response):
+		# 	os.remove(os.path.join(os.getcwd(), session['outputfile']))
+		# 	session.pop('outputfile', None)
+		# 	return render_template('dlcomplete.html')
 
 		# session = get_session()
 		print("return_file", application.secret_key)
@@ -399,7 +399,7 @@ else:
 			filename = session['outputfile']
 			print(filename)
 			filenamepath = os.path.join(os.getcwd(), filename)
-			print("return_file session outputfile = ", filenamepath)
+			print("return_file filenamepath = ", filenamepath)
 			try:
 				return(send_file(filenamepath, as_attachment=True))
 			except Exception as e:
