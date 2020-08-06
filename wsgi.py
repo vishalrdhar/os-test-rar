@@ -365,12 +365,12 @@ else:
     # end of audit()
 
 
-	@application.route('/return-file/')
-	def return_file():
-	try:
-		return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
-	except Exception as e:
-		return str(e)
+    @application.route('/return-file/')
+    def return_file():
+        try:
+            return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+        except Exception as e:
+            return str(e)
 
 # end of if __name__ == "__main__": ... else
 
