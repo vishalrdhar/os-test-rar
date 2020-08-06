@@ -325,7 +325,7 @@ else:
 	# home displays the selectform.html
 	@application.route('/home', methods=['GET'])
 	def home():
-		return render_template('selectform.html')
+		return(render_template('selectform.html'))
 	# end of function home()
 
 	# submit on the selectform.html will conduct the audit
@@ -389,7 +389,7 @@ else:
 			os.remove(os.path.join(os.getcwd(), session['outputfile']))
 			session.pop('outputfile', None)
 			session.pop('filesent',None)
-			return render_template('dlcomplete.html')
+			return(render_template('dlcomplete.html'))
 
 		# session = get_session()
 		print("return_file", application.secret_key)
@@ -411,11 +411,11 @@ else:
 					print("Session res", res)
 					return(send_file(filenamepath, as_attachment=True))
 				except Exception as e:
-					return str(e)
+					return(str(e))
 			else:
-				clearsession()
+				return(clearsession())
 		else:
-			return render_template('nofile.html')
+			return(render_template('nofile.html'))
 
 	# end of return_file
 
