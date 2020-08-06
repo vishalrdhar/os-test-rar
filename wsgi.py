@@ -346,8 +346,9 @@ else:
         #############################################
 
         # Call fx Main program
-        tlc, twc, tcc,output_list, outfile, errstr = my_main(filename)
+        tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
         OUTFILE = outfile
+        print("OUTFILE = ", OUTFILE)
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -371,6 +372,7 @@ else:
     @application.route('/return-file/')
     def return_file():
         try:
+            print("OUTFILE = ", OUTFILE)
             return(send_file(os.path.join(os.getcwd(), OUTFILE), as_attachment=True))
         except Exception as e:
             return str(e)
