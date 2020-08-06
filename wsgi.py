@@ -14,13 +14,6 @@ import sys
 # In[ ]:
 
 
-# line magic in jupyter notebook
-# get_ipython().system('dir ')
-
-
-# In[ ]:
-
-
 def my_main(input_filename):
 	print('***Start of my_main function***')
 	
@@ -88,7 +81,6 @@ def my_main(input_filename):
 	# print(word_length)	
 
 	# Frequency table will keep track of the frequency of the word lengths
-	freq_table = []
 	freq_table = 17*[0]		# initialize outside loop with 17 zeros
 	# print(freq_table)
 
@@ -277,15 +269,11 @@ from flask import Flask
 from flask import render_template 
 from flask import request
 from flask import send_file
-# from flask import session
-# from flask import after_this_request, g
 
 
 # In[ ]:
 
 from werkzeug.utils import secure_filename
-# Import werkzeug to run your app as a web application
-# from werkzeug.serving import run_simple
 
 # In[ ]:
 
@@ -337,85 +325,34 @@ else:
 		# name = file_obj.filename
 		# print(name)
 
-		#############################################
-		# get file info to upload file to container
+		#######################################################################
+		# get file info and upload file to container  directory
 		#
 		print("*** request.files['txtdata']")
 		file_obj = request.files['txtdata']
-		print("*** Type of the file_obj is :", type(file_obj))
+		print("*** file_obj", file_obj, "Type of the file_obj is :", type(file_obj))
 		filename = secure_filename(file_obj.filename)
 		file_obj.save(os.path.join(os.getcwd(), filename))
 		print("*** input file name is:", os.path.join(os.getcwd(), filename))
-		#############################################
+		#######################################################################
 
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
 
-		# if 'filesent' in session:
-		# 	session.pop('filesent', None)
-		# session['outputfile'] = outfile
-
-		# print("from my_main outfile = ", session['outputfile'])
-
-		# print("my_main", application.secret_key)
-		# res = str(session.items())
-		# print("Session res", res)
-
 		if len(errstr):
 			return render_template('selectform.html', errstr= errstr)
 		else:
+			# return results displayed on web page
 			# return render_template('template.html',
 			#					 my_string=filename,
 			#					 line_count=tlc,
 			#					 total_word_count = twc,
 			#					 total_char_count=tcc,
 			#					 my_list=output_list,)
+			# return the results file
 			return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
-			# return render_template('results.html',
-			# 					my_string=filename,
-			# 					line_count=tlc,
-			# 					total_word_count = twc,
-			# 					total_char_count=tcc,
-			# 					my_list=output_list,)
+
 	# end of audit()
-
-
-	# @application.route('/return-file')
-	# def return_file():
-
-	# 	def clearsession():
-	# 		print("$$$$ in clearsession")
-	# 		os.remove(os.path.join(os.getcwd(), session['outputfile']))
-	# 		session.pop('outputfile', None)
-	# 		session.pop('filesent',None)
-	# 		return(render_template('dlcomplete.html'))
-
-	# 	# session = get_session()
-	# 	print("return_file", application.secret_key)
-	# 	res = str(session.items())
-	# 	print("Session res", res)
-
-	# 	if 'outputfile' in session:
-	# 		res = str(session.items())
-	# 		print("Session res", res)
-	# 		if 'filesent' not in session:
-	# 			filename = session['outputfile']
-	# 			print(filename)
-	# 			filenamepath = os.path.join(os.getcwd(), filename)
-	# 			print("return_file filenamepath = ", filenamepath)
-	# 			try:
-	# 				session['filesent'] = True
-	# 				res = str(session.items())
-	# 				print("Session res", res)
-	# 				return(send_file(filenamepath, as_attachment=True))
-	# 			except Exception as e:
-	# 				return(str(e))
-	# 		else:
-	# 			return(clearsession())
-	# 	else:
-	# 		return(render_template('nofile.html'))
-
-	# end of return_file
 
 # end of if __name__ == "__main__": ... else
 
