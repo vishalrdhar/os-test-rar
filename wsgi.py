@@ -374,6 +374,8 @@ else:
     @application.route('/return-file/')
     def return_file():
         print("return_file")
+        res = str(session.items())
+        print("Session res", res)
         filename = session.get('outputfile')
         print(filename)
         filenamepath = os.path.join(os.getcwd(), filename)
