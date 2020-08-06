@@ -312,6 +312,8 @@ else:
     # Instantiate the Flask object 
     application = Flask(__name__)
 
+    application.secret_key = os.urandom(8)
+
     # home displays the selectform.html
     @application.route('/', methods=['GET'])
     def welcomepage():
