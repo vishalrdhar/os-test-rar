@@ -44,7 +44,8 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file extension NOT good')
 		#sys.exit('***Exiting***')
-		return(-1, -1, -1,[],"***ERROR*** Input file extension NOT good") 
+		os.remove(input_filename)
+		return(-1, -1, -1,[], None. "***ERROR*** Input file extension NOT good") 
 	#End If
 
 	# Do we continue ?
@@ -53,7 +54,8 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file NOT found OR extension NOT good')
 #	   sys.exit('***Exiting***')
-		return(-1, -1, -1,[],'***ERROR*** Input file NOT found OR extension NOT good')
+		os.remove(input_filename)
+		return(-1, -1, -1,[], None, '***ERROR*** Input file NOT found OR extension NOT good')
 	#End If
 
 	# Ready to open Input file
@@ -65,7 +67,8 @@ def my_main(input_filename):
 	except:
 		print('*** ERROR***',input_filename,' Input file CANNOT OPEN')
 #	   sys.exit('\n***Exiting***')
-		return(-1, -1, -1,[],'*** ERROR***',input_filename,' Input file CANNOT OPEN')
+		os.remove(input_filename)
+		return(-1, -1, -1,[], None, '*** ERROR***'+str(input_filename)+' Input file CANNOT OPEN')
 
 	# Audit the file 
 	print('\n ***Starting Audit***')
@@ -228,6 +231,8 @@ def my_main(input_filename):
 	print('*** INFO*** Closing files')
 	input_file_obj.close()
 	wb.close()
+
+	os.remove(input_filename)
 	
 	return(totlinecount, totwordcount, totcharcount,output_list,xlsx_filename,"" )
 
