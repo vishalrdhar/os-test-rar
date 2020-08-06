@@ -313,101 +313,103 @@ else:
 	# Instantiate the Flask object 
 	application = Flask(__name__)
 
-	application.secret_key = os.urandom(8)
 
-	# home displays the selectform.html
-	@application.route('/', methods=['GET'])
-	def welcomepage():
-		return('<h1><center>Text Audit Welcome Page</h1><br>')
-	# end of function home1()
- 
-	# home displays the selectform.html
-	@application.route('/home', methods=['GET'])
-	def home():
-		return render_template('selectform.html')
-	# end of function home()
+	with application.app_context():
+		application.secret_key = os.urandom(8)
 
-	# submit on the selectform.html will conduct the audit
-	@application.route('/audit', methods=['POST'])
-	def audit():
+		# home displays the selectform.html
+		@application.route('/', methods=['GET'])
+		def welcomepage():
+			return('<h1><center>Text Audit Welcome Page</h1><br>')
+		# end of function home1()
+	 
+		# home displays the selectform.html
+		@application.route('/home', methods=['GET'])
+		def home():
+			return render_template('selectform.html')
+		# end of function home()
 
-		# file_obj = request.files.get('txtdata')
-		# print("Type of the file is :", type(file_obj))
-		# name = file_obj.filename
-		# print(name)
+		# submit on the selectform.html will conduct the audit
+		@application.route('/audit', methods=['POST'])
+		def audit():
 
-		#############################################
-		# get file info to upload file to container
-		#
-		print("*** request.files['txtdata']")
-		file_obj = request.files['txtdata']
-		print("*** Type of the file_obj is :", type(file_obj))
-		filename = secure_filename(file_obj.filename)
-		file_obj.save(os.path.join(os.getcwd(), filename))
-		print("*** input file name is:", os.path.join(os.getcwd(), filename))
-		#############################################
+			# file_obj = request.files.get('txtdata')
+			# print("Type of the file is :", type(file_obj))
+			# name = file_obj.filename
+			# print(name)
 
-		# Call fx Main program
-		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
-		# if 'outputfile' in session:
-		g.outputfile = outfile
-		# g.session = session
+			#############################################
+			# get file info to upload file to container
+			#
+			print("*** request.files['txtdata']")
+			file_obj = request.files['txtdata']
+			print("*** Type of the file_obj is :", type(file_obj))
+			filename = secure_filename(file_obj.filename)
+			file_obj.save(os.path.join(os.getcwd(), filename))
+			print("*** input file name is:", os.path.join(os.getcwd(), filename))
+			#############################################
 
-		print("from my_main outfile = ", g.outputfile)
+			# Call fx Main program
+			tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
+			# if 'outputfile' in session:
+			g.outputfile = outfile
+			# g.session = session
 
-		print("my_main", application.secret_key)
-		# res = str(session.items())
-		# print("Session res", res)
+			print("from my_main outfile = ", g.outputfile)
 
-		if len(errstr):
-			return render_template('selectform.html', errstr= errstr)
-		else:
-			# return render_template('template.html',
-			#					 my_string=filename,
-			#					 line_count=tlc,
-			#					 total_word_count = twc,
-			#					 total_char_count=tcc,
-			#					 my_list=output_list,)
-			# return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
-			return render_template('results.html',
-								my_string=filename,
-								line_count=tlc,
-								total_word_count = twc,
-								total_char_count=tcc,
-								my_list=output_list,)
-	# end of audit()
+			print("my_main", application.secret_key)
+			# res = str(session.items())
+			# print("Session res", res)
 
-
-	# def get_session():
-	# 	return(g.session)
-
-	@application.route('/return-file/')
-	def return_file():
-		@after_this_request
-		def clearsession(response):
-			os.remove(os.path.join(os.getcwd(), g.outputfile))
-			g.pop('outputfile', None)
-			return render_template('dlcomplete.html')
-
-		# session = get_session()
-		print("return_file", application.secret_key)
-		# res = str(session.items())
-		# print("Session res", res)
+			if len(errstr):
+				return render_template('selectform.html', errstr= errstr)
+			else:
+				# return render_template('template.html',
+				#					 my_string=filename,
+				#					 line_count=tlc,
+				#					 total_word_count = twc,
+				#					 total_char_count=tcc,
+				#					 my_list=output_list,)
+				# return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+				return render_template('results.html',
+									my_string=filename,
+									line_count=tlc,
+									total_word_count = twc,
+									total_char_count=tcc,
+									my_list=output_list,)
+		# end of audit()
 
 
-		if 'outputfile' in g:
-			filename = g.outputfile
-			print(filename)
-			filenamepath = os.path.join(os.getcwd(), filename)
-			print("return_file session outputfile = ", filenamepath)
-			try:
-				return(send_file(filenamepath, as_attachment=True))
-			except Exception as e:
-				return str(e)
-		else:
-			return render_template('nofile.html')
+		# def get_session():
+		# 	return(g.session)
 
-	# end of return_file
+		@application.route('/return-file/')
+		def return_file():
+			@after_this_request
+			def clearsession(response):
+				os.remove(os.path.join(os.getcwd(), g.outputfile))
+				g.pop('outputfile', None)
+				return render_template('dlcomplete.html')
+
+			# session = get_session()
+			print("return_file", application.secret_key)
+			# res = str(session.items())
+			# print("Session res", res)
+			print("return_file g.outputfile = ", g.outputfile)
+
+			if 'outputfile' in g:
+				filename = g.outputfile
+				print(filename)
+				filenamepath = os.path.join(os.getcwd(), filename)
+				print("return_file session outputfile = ", filenamepath)
+				try:
+					return(send_file(filenamepath, as_attachment=True))
+				except Exception as e:
+					return str(e)
+			else:
+				return render_template('nofile.html')
+
+		# end of return_file
 
 # end of if __name__ == "__main__": ... else
 
