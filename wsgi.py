@@ -383,7 +383,7 @@ else:
 	# def get_session():
 	# 	return(g.session)
 
-	@application.route('/return-file/')
+	@application.route('/return-file')
 	def return_file():
 
 		def clearsession():
