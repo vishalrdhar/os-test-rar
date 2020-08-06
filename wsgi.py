@@ -45,7 +45,7 @@ def my_main(input_filename):
 		print('***ERROR*** Input file extension NOT good')
 		#sys.exit('***Exiting***')
 		os.remove(input_filename)
-		return(-1, -1, -1,[], None. "***ERROR*** Input file extension NOT good") 
+		return(-1, -1, -1,[], None, "***ERROR*** Input file extension NOT good") 
 	#End If
 
 	# Do we continue ?
