@@ -385,6 +385,7 @@ else:
 	def return_file():
 
 		def clearsession():
+			print("$$$$ in clearsession")
 			os.remove(os.path.join(os.getcwd(), session['outputfile']))
 			session.pop('outputfile', None)
 			session.pop('filesent',None)
@@ -406,6 +407,8 @@ else:
 				print("return_file filenamepath = ", filenamepath)
 				try:
 					session['filesent'] = True
+					res = str(session.items())
+					print("Session res", res)
 					return(send_file(filenamepath, as_attachment=True))
 				except Exception as e:
 					return str(e)
