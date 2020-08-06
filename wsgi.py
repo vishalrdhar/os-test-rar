@@ -377,7 +377,7 @@ else:
             session.pop('outputfile', None)
             session.pop('filesent', None)
             return('Text Audit Session Ended<br>Output File no longer available.')
-        else
+        else:
             print("return_file session outputfile = ", session.get('outputfile'))
             filenamepath = (os.path.join(os.getcwd(), session.get('outputfile')))
             try:
@@ -385,6 +385,7 @@ else:
                 return(send_file(filenamepath, as_attachment=True))
             except Exception as e:
                 return str(e)
+    # end of return_file
 
 # end of if __name__ == "__main__": ... else
 
