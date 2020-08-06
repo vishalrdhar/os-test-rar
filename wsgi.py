@@ -50,7 +50,7 @@ def my_main(input_filename):
 		print('Input File extension good', input_filename)
 	else:
 		print('***ERROR*** Input file extension NOT good')
-#	   sys.exit('***Exiting***')
+		#sys.exit('***Exiting***')
 		return(-1, -1, -1,[],"***ERROR*** Input file extension NOT good") 
 	#End If
 
