@@ -356,8 +356,8 @@ else:
 		print("from my_main outfile = ", g.outputfile)
 
 		print("my_main", application.secret_key)
-		res = str(session.items())
-		print("Session res", res)
+		# res = str(session.items())
+		# print("Session res", res)
 
 		if len(errstr):
 			return render_template('selectform.html', errstr= errstr)
@@ -395,7 +395,7 @@ else:
 		# print("Session res", res)
 
 
-		if 'outputfile' in session:
+		if 'outputfile' in g:
 			filename = g.outputfile
 			print(filename)
 			filenamepath = os.path.join(os.getcwd(), filename)
