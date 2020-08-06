@@ -314,13 +314,13 @@ else:
     @application.route('/', methods=['GET'])
     def home1():
         return('home page')
-    # end of function
-
+    # end of function home1()
+ 
     # home displays the selectform.html
     @application.route('/home', methods=['GET'])
     def home():
         return render_template('selectform.html')
-    # end of function
+    # end of function home()
 
     # submit on the selectform.html will conduct the audit
     @application.route('/audit', methods=['POST'])
@@ -331,20 +331,33 @@ else:
         name = file_obj.filename
         print(name)
 
+        #############################################
+        # get file info to upload file to container
+        #
+        print("*** request.files('file')")
+        file_obj = request.files('file')
+        print("*** Type of the file_obj is :", type(file_obj))
+        filename = secure_filename(file_obj.filename)
+        file_obj.save(os.path.join(os.getcwd(), filename))
+        print("*** inout file name is:", os.path.join(os.getcwd(), filename))
+        #############################################
+
         # Call fx Main program
-        tlc, twc, tcc,output_list, errstr = my_main(name)
+        tlc, twc, tcc,output_list, errstr = my_main(filename)
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
         else:
             return render_template('template.html',
-                                my_string=name,
+                                my_string=filename,
                                 line_count=tlc,
                                 total_word_count = twc,
                                 total_char_count=tcc,
                                 my_list=output_list,)
 
-    # end of if __name__ == "__main__": ... else
+    # end of audit()
+
+# end of if __name__ == "__main__": ... else
 
 #End of Audit_Text program
 
