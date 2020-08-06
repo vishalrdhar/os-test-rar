@@ -349,7 +349,7 @@ else:
         # Call fx Main program
         tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
         session['outputfile'] = outfile
-        print("from my_main outfile = ", session['outputfile'])
+        print("from my_main outfile = ", session.get('outputfile'))
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -372,12 +372,11 @@ else:
 
     @application.route('/return-file/')
     def return_file():
-        print(session)
         if 'outputfile' in session:
-            print("return_file OUTFILE = ", session['outputfile'])
+            print("return_file session outputfile = ", session.get('outputfile'))
             try:
-                return(send_file(os.path.join(os.getcwd(), session['outputfile']), as_attachment=True))
-                os.remove(os.path.join(os.getcwd(), session['outputfile']))
+                return(send_file(os.path.join(os.getcwd(), session.get('outputfile')), as_attachment=True))
+                os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
                 session.pop('outputfile', None)
             except Exception as e:
                 return str(e)
