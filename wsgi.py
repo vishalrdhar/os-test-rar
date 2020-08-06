@@ -372,19 +372,21 @@ else:
 
     @application.route('/return-file/')
     def return_file():
-        if 'filesent' in session:
-            os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
-            session.pop('outputfile', None)
-            session.pop('filesent', None)
-            return('Text Audit Session Ended<br>Output File no longer available.')
-        else:
-            print("return_file session outputfile = ", session.get('outputfile'))
-            filenamepath = (os.path.join(os.getcwd(), session.get('outputfile')))
-            try:
-                session['filesent'] = True
-                return(send_file(filenamepath, as_attachment=True))
-            except Exception as e:
-                return str(e)
+    	print("return_file")
+    	filenamepath = os.path.join(os.getcwd(), session.get('outputfile'))
+    	print("return_file session outputfile = ", filenamepath)
+        try:
+            return(send_file(filenamepath, as_attachment=True))
+        except Exception as e:
+            return str(e)
+
+        #     os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
+        #     session.pop('outputfile', None)
+        #     return('Text Audit Session Ended<br>Output File no longer available.')
+        # else:
+        #     print("return_file session outputfile = ", session.get('outputfile'))
+        #     filenamepath = os.path.join(os.getcwd(), session.get('outputfile'))
+
     # end of return_file
 
 # end of if __name__ == "__main__": ... else
