@@ -353,7 +353,7 @@ else:
 
 		session['outputfile'] = outfile
 
-		print("from my_main outfile = ", g.outputfile)
+		print("from my_main outfile = ", session['outputfile'])
 
 		print("my_main", application.secret_key)
 		res = str(session.items())
@@ -393,7 +393,7 @@ else:
 		print("return_file", application.secret_key)
 		res = str(session.items())
 		print("Session res", res)
-		print("return_file g.outputfile = ", session['outputfile'])
+		print("return_file session outputfile = ", session['outputfile'])
 
 		if 'outputfile' in session:
 			filename = session['outputfile']
