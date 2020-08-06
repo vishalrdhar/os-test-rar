@@ -348,8 +348,12 @@ else:
 
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
-		session['outputfile'] = outfile
-		print("from my_main outfile = ", session.get('outputfile'))
+		if 'outputfile' in session:
+			session['outputfile'] = outfile
+			session.modified = True
+		else:
+			session['outputfile'] = outfile
+
 		print("from my_main outfile = ", session.get('outputfile'))
 
 		if len(errstr):
