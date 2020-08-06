@@ -373,18 +373,20 @@ else:
 
     @application.route('/return-file/')
     def return_file():
-        print("return_file")
-        res = str(session.items())
-        print("Session res", res)
-        filename = session.get('outputfile')
-        print(filename)
-        filenamepath = os.path.join(os.getcwd(), filename)
-        print("return_file session outputfile = ", filenamepath)
-        try:
-            return(send_file(filenamepath, as_attachment=True))
-        except Exception as e:
-            return str(e)
-
+		print("return_file", application.secret_key)
+		res = str(session.items())
+		print("Session res", res)
+		if 'outputfile' in session:
+			filename = session.get('outputfile')
+			print(filename)
+			filenamepath = os.path.join(os.getcwd(), filename)
+			print("return_file session outputfile = ", filenamepath)
+			try:
+				return(send_file(filenamepath, as_attachment=True))
+			except Exception as e:
+				return str(e)
+		else:
+			return('Text Audit Session Ended<br>Output File no longer available.')
         #     os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
         #     session.pop('outputfile', None)
         #     return('Text Audit Session Ended<br>Output File no longer available.')
