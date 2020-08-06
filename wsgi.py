@@ -277,6 +277,7 @@ from flask import Flask
 from flask import render_template 
 from flask import request
 from flask import send_file
+from flask import session
 
 
 # In[ ]:
@@ -285,7 +286,6 @@ from werkzeug.utils import secure_filename
 # Import werkzeug to run your app as a web application
 # from werkzeug.serving import run_simple
 
-OUTFILE = ""
 # In[ ]:
 
 
@@ -328,7 +328,6 @@ else:
     @application.route('/audit', methods=['POST'])
     def audit():
 
-        global OUTFILE
         # file_obj = request.files.get('txtdata')
         # print("Type of the file is :", type(file_obj))
         # name = file_obj.filename
@@ -347,8 +346,8 @@ else:
 
         # Call fx Main program
         tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
-        OUTFILE = outfile
-        print("from my_main OUTFILE = ", OUTFILE)
+        session['outputfile'] = outfile
+        print("from my_main outfile = ", session["outputfile"])
 
         if len(errstr):
             return render_template('selectform.html', errstr= errstr)
@@ -371,10 +370,9 @@ else:
 
     @application.route('/return-file/')
     def return_file():
-        global OUTFILE
         try:
-            print("return_file OUTFILE = ", OUTFILE)
-            return(send_file(os.path.join(os.getcwd(), OUTFILE), as_attachment=True))
+            print("return_file OUTFILE = ", session["outputfile"])
+            return(send_file(os.path.join(os.getcwd(), session["outputfile"]), as_attachment=True))
         except Exception as e:
             return str(e)
 
