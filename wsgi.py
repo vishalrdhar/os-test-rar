@@ -356,6 +356,10 @@ else:
 
 		print("from my_main outfile = ", session.get('outputfile'))
 
+		print("my_main", application.secret_key)
+		res = str(session.items())
+		print("Session res", res)
+
 		if len(errstr):
 			return render_template('selectform.html', errstr= errstr)
 		else:
