@@ -381,6 +381,12 @@ else:
 
 	@application.route('/return-file/')
 	def return_file():
+		@after_this_request
+		def clearsession():
+			os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
+			session.pop('outputfile', None)
+			return render_template('dlcomplete.html')
+
 		print("return_file", application.secret_key)
 		res = str(session.items())
 		print("Session res", res)
@@ -394,13 +400,7 @@ else:
 			except Exception as e:
 				return str(e)
 		else:
-			return('Text Audit Session Ended<br>Output File no longer available.')
-		#	 os.remove(os.path.join(os.getcwd(), session.get('outputfile')))
-		#	 session.pop('outputfile', None)
-		#	 return('Text Audit Session Ended<br>Output File no longer available.')
-		# else:
-		#	 print("return_file session outputfile = ", session.get('outputfile'))
-		#	 filenamepath = os.path.join(os.getcwd(), session.get('outputfile'))
+			return render_template('nofile.html')
 
 	# end of return_file
 
