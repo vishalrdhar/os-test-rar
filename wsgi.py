@@ -354,7 +354,7 @@ else:
 
 		# delete input file
 		try:
-			os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+			os.remove(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 		except:
 			pass
 
