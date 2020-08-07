@@ -352,13 +352,11 @@ else:
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
 
-		import time
-
 		# delete input file
 		try:
-			time.sleep(10)
 			os.remove(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 		except:
+			print("input file deletion error")
 			pass
 
 		if len(errstr):
