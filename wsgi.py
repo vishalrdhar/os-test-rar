@@ -44,7 +44,7 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file extension NOT good')
 		#sys.exit('***Exiting***')
-		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+		# os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, "***ERROR*** Input file extension NOT good") 
 	#End If
 
@@ -54,7 +54,7 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file NOT found OR extension NOT good')
 #	   sys.exit('***Exiting***')
-		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+		# os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, '***ERROR*** Input file NOT found OR extension NOT good')
 	#End If
 
@@ -62,12 +62,12 @@ def my_main(input_filename):
 	# Mode read 
 	# File Handle is the File descriptor - path , mode, name 
 	try:
-		input_file_obj = open(input_filename,'r')
+		input_file_obj = open(os.path.join(application.config['UPLOAD_FOLDER'],input_filename),'r')
 		print('*** INFO***',input_filename,' Input file opened successfully')
 	except:
 		print('*** ERROR***',input_filename,' Input file CANNOT OPEN')
 #	   sys.exit('\n***Exiting***')
-		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+		# os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, '*** ERROR***'+str(input_filename)+' Input file CANNOT OPEN')
 
 	# Audit the file 
@@ -232,7 +232,7 @@ def my_main(input_filename):
 	input_file_obj.close()
 	wb.close()
 
-	os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+	# os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 	
 	return(totlinecount, totwordcount, totcharcount,output_list,xlsx_filename,"" )
 
@@ -297,7 +297,7 @@ if __name__ == "__main__":
 
 
 else:
-	# __name__ will have the name of the module that imported this script
+	# __name__ will have the name of this python file
 	print("Python script was imported")
 	
 	##############################################
@@ -351,6 +351,12 @@ else:
 
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
+
+		# delete input file
+		try:
+			os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
+		except:
+			pass
 
 		if len(errstr):
 			return render_template('selectform.html', errstr= errstr)
