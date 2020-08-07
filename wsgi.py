@@ -22,7 +22,7 @@ def my_main(input_filename):
 	# print(curr_dir)
 
 	# Get the list of files in the directory
-	file_list = os.listdir(app.config['UPLOAD_FOLDER'])
+	file_list = os.listdir(application.config['UPLOAD_FOLDER'])
 	# print(file_list)
 
 	# Search thru the list for the input file name
@@ -44,7 +44,7 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file extension NOT good')
 		#sys.exit('***Exiting***')
-		os.remove(os.path.join(app.config['UPLOAD_FOLDER'],input_filename))
+		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, "***ERROR*** Input file extension NOT good") 
 	#End If
 
@@ -54,7 +54,7 @@ def my_main(input_filename):
 	else:
 		print('***ERROR*** Input file NOT found OR extension NOT good')
 #	   sys.exit('***Exiting***')
-		os.remove(os.path.join(app.config['UPLOAD_FOLDER'],input_filename))
+		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, '***ERROR*** Input file NOT found OR extension NOT good')
 	#End If
 
@@ -67,7 +67,7 @@ def my_main(input_filename):
 	except:
 		print('*** ERROR***',input_filename,' Input file CANNOT OPEN')
 #	   sys.exit('\n***Exiting***')
-		os.remove(os.path.join(app.config['UPLOAD_FOLDER'],input_filename))
+		os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 		return(-1, -1, -1,[], None, '*** ERROR***'+str(input_filename)+' Input file CANNOT OPEN')
 
 	# Audit the file 
@@ -232,7 +232,7 @@ def my_main(input_filename):
 	input_file_obj.close()
 	wb.close()
 
-	os.remove(os.path.join(app.config['UPLOAD_FOLDER'],input_filename))
+	os.remove(os.path.join(application.config['UPLOAD_FOLDER'],input_filename))
 	
 	return(totlinecount, totwordcount, totcharcount,output_list,xlsx_filename,"" )
 
@@ -315,8 +315,8 @@ else:
 	# Instantiate the Flask object 
 	application = Flask(__name__)
 
-	app.config['UPLOAD_FOLDER'] = upload_folder_path
-	app.comfig['ALLOWED_EXTENSIONS'] = {'txt'}
+	application.config['UPLOAD_FOLDER'] = upload_folder_path
+	application.config['ALLOWED_EXTENSIONS'] = {'txt'}
 
 	# home displays a welcome message
 	@application.route('/', methods=['GET'])
@@ -345,8 +345,8 @@ else:
 		# save input file data to file in container directory
 		#
 		filename = secure_filename(file_obj.filename)
-		file_obj.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		print("*** input file name is:", os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		file_obj.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+		print("*** input file name is:", os.path.join(application.config['UPLOAD_FOLDER'], filename))
 		#######################################################################
 
 		# Call fx Main program
