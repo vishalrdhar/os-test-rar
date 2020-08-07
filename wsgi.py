@@ -225,7 +225,7 @@ def my_main(input_filename):
 	ws2.add_chart(bar, 'F30')
 
 	# Save the workbook
-	wb.save(xlsx_filename)
+	wb.save(os.path.join(application.config['UPLOAD_FOLDER'],xlsx_filename))
 
 	#Close files after finishing audit
 	print('*** INFO*** Closing files')
@@ -352,8 +352,11 @@ else:
 		# Call fx Main program
 		tlc, twc, tcc, output_list, outfile, errstr = my_main(filename)
 
+		import time
+
 		# delete input file
 		try:
+			time.sleep(10)
 			os.remove(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 		except:
 			pass
