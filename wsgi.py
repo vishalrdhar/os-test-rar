@@ -372,7 +372,7 @@ else:
 			#					 total_char_count=tcc,
 			#					 my_list=output_list,)
 			# return the results file
-			return(send_file(os.path.join(os.getcwd(), outfile), as_attachment=True))
+			return(send_file(os.path.join(application.config['UPLOAD_FOLDER'], outfile), as_attachment=True))
 
 	# end of audit()
 
